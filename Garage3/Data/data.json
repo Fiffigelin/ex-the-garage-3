@@ -1,0 +1,83 @@
+
+{
+  "garages": [
+    {
+      "name": "Central Garage",
+      "parkingLots": 10,
+      "vehicles": [
+        {
+          "type": "Car",
+          "color": "Red",
+          "numberOfWheels": 4,
+          "licensePlate": "ABC12A",
+          "numberOfDoors": 5,
+          "isElectric": true
+        },
+        {
+          "type": "Motorcycle",
+          "color": "Black",
+          "numberOfWheels": 2,
+          "licensePlate": "XYZ12A",
+          "hasSidecar": false
+        },
+        {
+          "type": "Bus",
+          "color": "Blue",
+          "numberOfWheels": 6,
+          "licensePlate": "DEF34G",
+          "numberOfSeats": 40
+        },
+        {
+          "type": "Boat",
+          "color": "White",
+          "numberOfWheels": 0,
+          "licensePlate": "ERM789",
+          "numberOfEngines": 2
+        }
+      ]
+    },
+    {
+      "name": "East Garage",
+      "parkingLots": 50,
+      "vehicles": [
+        {
+          "type": "Car",
+          "color": "Red",
+          "numberOfWheels": 4,
+          "licensePlate": "CDE789",
+          "numberOfDoors": 3,
+          "isElectric": true
+        },
+        {
+          "type": "Airplane",
+          "color": "White",
+          "numberOfWheels": 3,
+          "licensePlate": "DKE82E",
+          "numberOfPassengers": 85
+        },
+        {
+          "type": "Bus",
+          "color": "Green",
+          "numberOfWheels": 6,
+          "licensePlate": "BAS123",
+          "numberOfSeats": 40
+        },
+        {
+          "type": "Boat",
+          "color": "Lilac",
+          "numberOfWheels": 0,
+          "licensePlate": "CAS456",
+          "numberOfEngines": 2
+        },
+        {
+          "type": "Car",
+          "color": "Black",
+          "numberOfWheels": 4,
+          "licensePlate": "ASL81B",
+          "numberOfDoors": 5,
+          "isElectric": false
+        }
+      ]
+    }
+  ]
+}
