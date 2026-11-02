@@ -7,7 +7,6 @@ using Garage3.UI.Table;
 using Garage3.Domain.General;
 using Garage3.UI.Emoji;
 using Garage3.Domain.Vehicles;
-using Garage3.Domain.Interface;
 using Garage3.Application;
 using Garage3.Domain.Garages;
 
@@ -295,7 +294,12 @@ public class ConsoleUI : IUI
       case VehicleType.Bus:
         {
           int numberOfWheels = ConsoleInput.NumberOfProperty("Number of wheels: ");
-          int numberOfSeats = ConsoleInput.NumberOfProperty("Number of seats: ");
+          int numberOfSeats = ConsoleInput.Read<int>(
+            "Number of seats: ",
+            "You need to enter a value higher than 0 and no more than 100. Please try again!",
+            int.TryParse,
+            value => value > 0 && value <= 100
+          );
 
           return _vehicleFactory.CreateBus(
             licenseplate, color, numberOfWheels, numberOfSeats
@@ -312,7 +316,12 @@ public class ConsoleUI : IUI
       case VehicleType.Airplane:
         {
           int numberOfWheels = ConsoleInput.NumberOfProperty("Number of wheels: ");
-          int numberOfPassengers = ConsoleInput.NumberOfProperty("Number of passengers: ");
+          int numberOfPassengers = ConsoleInput.Read<int>(
+            "Number of passengers: ",
+            "You need to enter a value higher than 0 and no more than 100. Please try again!",
+            int.TryParse,
+            value => value > 0 && value <= 100
+          );
 
           return _vehicleFactory.CreateAirplane(
             licenseplate, color, numberOfWheels, numberOfPassengers
