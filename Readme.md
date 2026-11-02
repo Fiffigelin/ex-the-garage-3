@@ -54,7 +54,7 @@ Projektet är uppdelat i lager för att separera användargränssnitt, applikati
 - **Domain** – `Garage`, `GarageData`, `Vehicle`, fordonsklasser och domäninterface.
 - **Garage3.Tests** – separat testprojekt för enhetstester.
 
-> Bild
+<img width="632" height="612" alt="garaget3 drawio" src="https://github.com/user-attachments/assets/44ebd22f-72e7-42da-857e-2dc16b312318" />
 
 ### Viktiga domänklasser
 
