@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Garage3.Domain.Garages;
+﻿using Garage3.Domain.Garages;
 using Garage3.Domain.Vehicles;
 using Garage3.Tests.Fakes;
 
@@ -53,7 +52,7 @@ public class GarageTests
 
         // Assert
         Assert.True(result);
-        Assert.Single(garage);
+        Assert.Single(garage.Vehicles);
     }
 
     [Fact]
@@ -90,7 +89,7 @@ public class GarageTests
 
         // Assert
         Assert.False(result);
-        Assert.Single(garage);
+        Assert.Single(garage.Vehicles);
     }
 
     [Fact]
@@ -101,5 +100,50 @@ public class GarageTests
 
         // Assert
         Assert.Throws<ArgumentNullException>(() => garage.AddVehicle(null!));
+    }
+
+    // remove vehicles
+
+    [Theory]
+    [InlineData("ABC123")]
+    [InlineData("abc123")]
+    [InlineData("aBc123")]
+    public void RemoveVehicle_ExistingPlate_ReturnsTrue(string licenseplate)
+    {
+        // Arrange
+        var garage = new Garage<Vehicle>("Test", 5);
+        garage.AddVehicle(new TestCar("ABC123"));
+
+        // Act
+        bool result = garage.RemoveVehicle(licenseplate);
+
+        // Assert
+        Assert.True(result);
+        Assert.Empty(garage.Vehicles);
+    }
+
+    [Fact]
+    public void RemoveVehicle_WrongLicenseplate_ReturnsFalse()
+    {
+        // Arrange
+        var garage = new Garage<Vehicle>("Test", 5);
+        garage.AddVehicle(new TestCar("ABC123"));
+
+        // Act
+        bool result = garage.RemoveVehicle("ZZZ123");
+
+        //Assert
+        Assert.False(result);
+        Assert.Single(garage.Vehicles);
+    }
+
+    [Fact]
+    public void RemoveVehicle_NullLicenseplate_ThrowsArgumentNullException()
+    {
+        // Arrange & Act
+        var garage = new Garage<Vehicle>("Test", 5);
+
+        //Assert
+        Assert.Throws<ArgumentNullException>(() => garage.RemoveVehicle(null!));
     }
 }

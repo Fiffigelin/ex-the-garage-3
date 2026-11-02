@@ -24,12 +24,12 @@ Fordonen ska implementeras som klassen Vehicle och subklasser till den.
 [x] Dessa skall implementera minst en egen egenskap var. 
 [] Själva garaget ska implementeras som en generisk samling av fordon:  
 class Garage<T>  
-[] Dessutom ska den generiska typen begränsas med hjälp av en constraint:  
+[x] Dessutom ska den generiska typen begränsas med hjälp av en constraint:  
 class Garage<T> where ....  
-Vidare ska det gå att iterera över en instans av Garage med hjälp av foreach. Det innebär att 
+[x] Vidare ska det gå att iterera över en instans av Garage med hjälp av foreach. Det innebär att 
 Garage ska implementera den generiska varianten av interfacet IEnumerable:  
 class Garage<T> : ....  
-Klassen behöver inte ärva från någon annan klass eller implementera något annat interface.  
+[x] Klassen behöver inte ärva från någon annan klass eller implementera något annat interface.  
 [x] Vid instansieringen av ett nytt garage måste kapaciteten anges som argument till 
 konstruktorn.  
 
@@ -69,7 +69,7 @@ platser osv en motorcykel tar endast 1/3 dels plats.
 [] Läsa in storleken på garaget via konfiguration.  
 
 ## Tillägg Unit-tester: 
-Testen ska skapas i ett eget testprojekt.  
+[x] Testen ska skapas i ett eget testprojekt.  
 Vi begränsar oss till att testa de publika metoderna i klassen Garage.  
 (Att skriva test för hela applikationen ses som en extra uppgift om tid finns).  
 
