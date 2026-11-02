@@ -202,7 +202,7 @@ public class ConsoleUI : IUI
 
       while (true)
       {
-        var garages = _handler.GetGaragesWithParking().ToList();
+        var garages = _handler.GetAvailableGarages().ToList();
 
         if (!garages.Any())
         {

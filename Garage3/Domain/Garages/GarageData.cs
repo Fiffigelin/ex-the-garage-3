@@ -41,11 +41,6 @@ public class GarageData
     ));
   }
 
-  public IEnumerable<Vehicle> GetAllVehicles()
-  {
-    return _garages.SelectMany(garage => garage.Vehicles);
-  }
-
   public IEnumerable<Garage<Vehicle>> GetAvailableGarages()
   {
     return _garages.Where(g => g.ParkingLots - g.Vehicles.Count() != 0);

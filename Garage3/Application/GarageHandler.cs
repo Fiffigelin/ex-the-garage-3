@@ -11,7 +11,6 @@ public class GarageHandler : IHandler
 {
   private readonly GarageData _data;
 
-  // ska jag byta till primary constructor?
   public GarageHandler(GarageData data)
   {
     _data = data;
@@ -40,17 +39,12 @@ public class GarageHandler : IHandler
     return _data.Garages.SelectMany(garage => garage.Vehicles, (garage, vehicle) => new VehicleSearchResult(garage, vehicle));
   }
 
-  // public IEnumerable<Garage> GetAvailableGarages(IVehicle vehicle)
-  // {
-  //   return _data.Garages;
-  // }
-
   public IEnumerable<Garage<Vehicle>> GetGarages()
   {
     return _data.Garages;
   }
 
-  public IEnumerable<Garage<Vehicle>> GetGaragesWithParking()
+  public IEnumerable<Garage<Vehicle>> GetAvailableGarages()
   {
     return _data.GetAvailableGarages();
   }
