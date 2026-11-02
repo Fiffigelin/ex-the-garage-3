@@ -17,7 +17,7 @@ public interface IHandler
 
   // Search
   IEnumerable<VehicleSearchResult> GetAllVehicles();
-  IEnumerable<VehicleSearchResult> SearchVehicles(VehicleSearchResult filter);
+  IEnumerable<VehicleSearchResult> SearchVehicles(SearchVehicle filter);
 
   //Abailability
   // IEnumerable<Garage> GetAvailableGarages(IVehicle vehicle);

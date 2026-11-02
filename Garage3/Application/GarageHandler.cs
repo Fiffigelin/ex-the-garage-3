@@ -91,8 +91,11 @@ public class GarageHandler : IHandler
     return garage?.RemoveVehicle(licenseplate) ?? false;
   }
 
-  public IEnumerable<VehicleSearchResult> SearchVehicles(VehicleSearchResult filter)
+  public IEnumerable<VehicleSearchResult> SearchVehicles(SearchVehicle filter)
   {
-    throw new NotImplementedException();
+    return [.. _data.Garages
+        .SelectMany(garage => garage.Vehicles
+          .Where(filter.Matches)
+          .Select(vehicle => new VehicleSearchResult(garage, vehicle)))];
   }
 }

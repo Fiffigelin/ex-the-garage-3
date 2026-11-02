@@ -69,7 +69,7 @@ public class ConsoleUI : IUI
             RemoveVehicle();
             break;
           case 4:
-            // Service.SearchVehicles(data);
+            SearchVehicles();
             break;
           case 5:
             Environment.Exit(0);
@@ -327,6 +327,37 @@ public class ConsoleUI : IUI
   {
     DisplayMainTitle();
     List<VehicleSearchResult> results = [.. _handler.GetAllVehicles()];
+
+    VehicleTable.ViewVehicleWithGarageNameTable(results);
+  }
+
+  private void SearchVehicles()
+  {
+    DisplayMainTitle();
+    Console.WriteLine("\nSearch vehicles - leave a field empty to skip it.\n");
+
+    string? licensePlate = ConsoleInput.Read<string?>(
+      "Licenseplate: ",
+      string.Empty,
+      ConsoleInput.TryParseOptionalString
+    );
+
+    string? color = ConsoleInput.Read<string?>(
+      "Color: ",
+      string.Empty,
+      ConsoleInput.TryParseOptionalString
+    );
+
+    int? numberOfWheels = ConsoleInput.Read<int?>(
+      "Number of wheels: ",
+      "Enter a whole number (0 or higher), or leave it empty to skip. Please try again!",
+      ConsoleInput.TryParseOptionalInt
+    );
+
+    VehicleType? type = ConsoleEmoji.ChooseVehicleTypeFilter("Any", ["\nSearch vehicles", "Type of vehicle\n"]);
+
+    SearchVehicle filter = new(licensePlate, color, numberOfWheels, type);
+    List<VehicleSearchResult> results = [.. _handler.SearchVehicles(filter)];
 
     VehicleTable.ViewVehicleWithGarageNameTable(results);
   }

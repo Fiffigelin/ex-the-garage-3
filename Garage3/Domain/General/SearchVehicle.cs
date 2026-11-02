@@ -14,7 +14,7 @@ public sealed record SearchVehicle(
   int? NumberOfWheels = null,
   VehicleType? Type = null)
 {
-  public bool Matches(Vehicle vehicle)
+  public bool Matches(IVehicle vehicle)
   {
     ArgumentNullException.ThrowIfNull(vehicle);
 
