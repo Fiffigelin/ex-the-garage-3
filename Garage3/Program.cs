@@ -10,24 +10,45 @@ internal class Program
 {
   private static void Main(string[] args)
   {
-    GarageData data = new();
+    GarageRepository repository = new(
+      Path.Combine(
+        AppContext.BaseDirectory,
+        "Data",
+        "garage-data.json"
+      )
+    );
+    GarageData data = FetchData(repository);
+
     VehicleFactory vehicleFactory = new();
     IHandler handler = new GarageHandler(data);
     ConsoleUI ui = new(handler, vehicleFactory);
+    Console.OutputEncoding = Encoding.UTF8;
 
-    FetchSeedData(data);
     ui.Start();
   }
-  public static void FetchSeedData(GarageData data)
+  public static GarageData FetchData(GarageRepository repository)
   {
-    string filePath = Path.Combine(
-      AppContext.BaseDirectory,
-      "Data",
-      "data.json"
-    );
+    if (File.Exists(Path.Combine(
+        AppContext.BaseDirectory,
+        "Data",
+        "garage-data.json"
+      )))
+    {
+      return repository.Load();
+    }
+    else
+    {
+      string filePath = Path.Combine(
+        AppContext.BaseDirectory,
+        "Data",
+        "seed.json"
+      );
 
-    GarageSeeder.Seed(data, filePath);
-    Console.OutputEncoding = Encoding.UTF8;
+      GarageData data = GarageSeeder.Seed(filePath);
+      repository.Save(data);
+
+      return data;
+    }
 
   }
 }

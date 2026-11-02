@@ -1,19 +1,23 @@
 
+using System.Collections.Generic;
+
 namespace Garage3.Data;
 
-public class GarageSeedData
+// Json DTOS
+public class GarageStorageData
 {
-  public GarageSeedItem[] Garages { get; set; } = [];
+  public List<GarageStorageItem> Garages { get; set; } = [];
 }
 
-public class GarageSeedItem
+public class GarageStorageItem
 {
   public string Name { get; set; } = "";
   public int ParkingLots { get; set; }
-  public VehicleSeedItem[] Vehicles { get; set; } = [];
+  public List<VehicleStorageItem> Vehicles { get; set; } = [];
 }
 
-public class VehicleSeedItem
+// Behöver spara alla värden för de klasser som har basklassen Vehicle
+public class VehicleStorageItem
 {
   public string Type { get; set; } = "";
   public string Color { get; set; } = "";
