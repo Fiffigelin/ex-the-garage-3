@@ -19,12 +19,12 @@ public class GarageHandler : IHandler
 
   public bool IsGarageNameUnique(string name)
   {
-    return !_data.IsNameUnique(name);
+    return !_data.IsNameTaken(name);
   }
 
   public bool AddGarage(string name, int parkinglots)
   {
-    if (!_data.IsNameUnique(name))
+    if (_data.IsNameTaken(name))
     {
       return false;
     }
@@ -37,7 +37,7 @@ public class GarageHandler : IHandler
 
   public IEnumerable<VehicleSearchResult> GetAllVehicles()
   {
-    throw new System.NotImplementedException();
+    return _data.Garages.SelectMany(garage => garage.Vehicles, (garage, vehicle) => new VehicleSearchResult(garage, vehicle));
   }
 
   // public IEnumerable<Garage> GetAvailableGarages(IVehicle vehicle)
@@ -93,6 +93,6 @@ public class GarageHandler : IHandler
 
   public IEnumerable<VehicleSearchResult> SearchVehicles(VehicleSearchResult filter)
   {
-    throw new System.NotImplementedException();
+    throw new NotImplementedException();
   }
 }

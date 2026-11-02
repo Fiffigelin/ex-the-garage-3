@@ -106,13 +106,13 @@ public class ConsoleUI : IUI
     DisplayMainTitle();
     Console.WriteLine();
 
-    List<string> options = ["Add new Garage"];
     while (true)
     {
       var garages = _handler.GetGarages();
+      List<string> options = ["Add new Garage"];
 
       options.AddRange(garages.Select(g => g.Name));
-      options.Add("Back");
+      options.AddRange("Back");
 
       int input = ConsoleMenu.MenuHandler(
         [
@@ -138,7 +138,7 @@ public class ConsoleUI : IUI
   private void AddGarage()
   {
     DisplayMainTitle();
-    Console.WriteLine("Add New Parking Facility\n");
+    Console.WriteLine("Add New Garage Facility\n");
 
     string name = ConsoleInput.Read<string>(
       "Name: ",
@@ -157,15 +157,19 @@ public class ConsoleUI : IUI
 
     try
     {
-      _handler.AddGarage(name, parkinglots);
-      Console.WriteLine($"\nParking facility '{name}' has been added with {parkinglots} lots");
+      bool success = _handler.AddGarage(name, parkinglots);
+      string message = success ? $"\nParking facility '{name}' has been added with {parkinglots} lots" : "Could not save the garage. Please try again!";
+      Console.WriteLine(message);
     }
     catch (ArgumentException ex)
     {
-      Console.WriteLine($"\nCould not create the garage: {ex.Message}");
+      Console.WriteLine($"\nSomething happened: {ex.Message}");
+    }
+    finally
+    {
+      ConsoleOutput.PressKeyToContinue();
     }
 
-    ConsoleOutput.PressKeyToContinue();
   }
 
   private void ShowAllParkedVehicles()
@@ -194,7 +198,7 @@ public class ConsoleUI : IUI
     {
       DisplayMainTitle();
       Console.WriteLine();
-
+      List<string> options = [];
 
       while (true)
       {
@@ -207,8 +211,14 @@ public class ConsoleUI : IUI
           return;
         }
 
-        List<string> options = [.. garages.Select(g => g.Name)];
-        options.Add("Back");
+        options.AddRange(
+          garages.Select(g => g.Name)
+          .Where(name => !options.Contains(name))
+        );
+        if (!options.Contains("Back"))
+        {
+          options.Add("Back");
+        }
 
         int input = ConsoleMenu.MenuHandler(
           ["\nChoose a Garage\n"],
@@ -236,6 +246,8 @@ public class ConsoleUI : IUI
         );
 
         ConsoleOutput.ParkingCar(type.Value, success);
+        ConsoleOutput.PressKeyToContinue();
+        return;
       }
     }
   }

@@ -56,7 +56,7 @@ public static class VehicleTable
     List<string> columnHeader = ["", "Garage", "License", "Type", "Color", "Wheels"];
 
     List<RowData<VehicleSearchResult>> rows = [];
-    List<Vehicle> vehicles = [];
+    List<IVehicle> vehicles = [];
 
     foreach (VehicleSearchResult result in results)
     {
@@ -89,7 +89,7 @@ public static class VehicleTable
     List<string> columnHeader = ["", "Facility", "License", "Type", "Color", "Wheels"];
 
     List<RowData<VehicleSearchResult>> rows = [];
-    List<Vehicle> vehicles = [];
+    List<IVehicle> vehicles = [];
 
     foreach (VehicleSearchResult result in results)
     {

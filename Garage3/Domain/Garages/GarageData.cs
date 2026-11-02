@@ -18,11 +18,11 @@ public class GarageData
     _garages.Add(facility);
   }
 
-  public bool IsNameUnique(string name)
+  public bool IsNameTaken(string name)
   {
     ArgumentNullException.ThrowIfNull(name);
 
-    return !_garages.Any(g =>
+    return _garages.Any(g =>
     string.Equals(
       g.Name,
       name.Trim(),

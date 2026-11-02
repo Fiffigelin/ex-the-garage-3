@@ -1,11 +1,12 @@
 using System;
 using Garage3.Domain.Garages;
+using Garage3.Domain.Interface;
 using Garage3.Domain.Vehicles;
 
 namespace Garage3.Domain.General;
 
 // flyttade record hit. Kanske fel ställe, ska fundera lite på detta
-public sealed record VehicleSearchResult(Garage Garage, Vehicle Vehicle);
+public sealed record VehicleSearchResult(Garage Garage, IVehicle Vehicle);
 
 public sealed record SearchVehicle(
   string? LicensePlate = null,
