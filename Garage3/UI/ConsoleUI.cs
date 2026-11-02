@@ -17,11 +17,13 @@ public class ConsoleUI : IUI
 {
   private readonly IHandler _handler;
   private readonly VehicleFactory _vehicleFactory;
+  private readonly VehicleTable _table;
 
-  public ConsoleUI(IHandler handler, VehicleFactory vehicleFactory)
+  public ConsoleUI(IHandler handler, VehicleFactory vehicleFactory, VehicleTable table)
   {
     _handler = handler;
     _vehicleFactory = vehicleFactory;
+    _table = table;
   }
 
   public void Start()
@@ -130,7 +132,7 @@ public class ConsoleUI : IUI
       }
       else
       {
-        VehicleTable.ViewVehiclesTable(garages.ElementAt(input - 1));
+        _table.ViewVehiclesTable(garages.ElementAt(input - 1));
       }
     }
   }
@@ -328,7 +330,7 @@ public class ConsoleUI : IUI
     DisplayMainTitle();
     List<VehicleSearchResult> results = [.. _handler.GetAllVehicles()];
 
-    VehicleTable.ViewVehicleWithGarageNameTable(results);
+    _table.ViewVehicleWithGarageNameTable(results);
   }
 
   private void SearchVehicles()
@@ -359,6 +361,6 @@ public class ConsoleUI : IUI
     SearchVehicle filter = new(licensePlate, color, numberOfWheels, type);
     List<VehicleSearchResult> results = [.. _handler.SearchVehicles(filter)];
 
-    VehicleTable.ViewVehicleWithGarageNameTable(results);
+    _table.ViewVehicleWithGarageNameTable(results);
   }
 }

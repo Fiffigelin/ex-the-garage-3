@@ -11,11 +11,17 @@ public class GarageData
 
   public IEnumerable<Garage<Vehicle>> Garages => _garages;
 
-  public void AddFacility(Garage<Vehicle> facility)
+  public bool AddGarage(Garage<Vehicle> garage)
   {
-    ArgumentNullException.ThrowIfNull(facility);
+    ArgumentNullException.ThrowIfNull(garage);
 
-    _garages.Add(facility);
+    if (IsNameTaken(garage.Name))
+    {
+      return false;
+    }
+
+    _garages.Add(garage);
+    return true;
   }
 
   public bool IsNameTaken(string name)

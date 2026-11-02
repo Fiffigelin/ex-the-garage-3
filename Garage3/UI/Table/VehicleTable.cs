@@ -11,9 +11,15 @@ using System.Linq;
 
 namespace Garage3.UI.Table;
 
-public static class VehicleTable
+public class VehicleTable
 {
-  public static void ViewVehiclesTable(Garage<Vehicle> garage)
+  private readonly IHandler _handler;
+
+  public VehicleTable(IHandler handler)
+  {
+    _handler = handler;
+  }
+  public void ViewVehiclesTable(Garage<Vehicle> garage)
   {
     List<int> columnWidths = [1, 12, 12, 10, 10];
     List<string> columnHeader = ["", "License", "Type", "Color", "Wheels"];
@@ -49,7 +55,7 @@ public static class VehicleTable
       rows,
       () => [VehicleStat([.. garage.Vehicles])]);
   }
-  public static void ViewVehicleWithGarageNameTable(List<VehicleSearchResult> results, bool showStat = false)
+  public void ViewVehicleWithGarageNameTable(List<VehicleSearchResult> results, bool showStat = false)
   {
     List<int> columnWidths = [1, -14, -10, -12, -10, 6];
     List<string> header = ["Search Results"];
@@ -113,7 +119,7 @@ public static class VehicleTable
     Table.PrintNoIntegrationTable(() => header, columnHeader, columnWidths, rows, showStat ? () => [VehicleStat([.. vehicles])] : () => [""]);
   }
 
-  private static bool ViewVehicleInformation(IVehicle vehicle, IGarage<Vehicle> facility)
+  private bool ViewVehicleInformation(IVehicle vehicle, IGarage<Vehicle> garage)
   {
     List<string> options = ["Exit Parking", "Back"];
 
@@ -122,7 +128,8 @@ public static class VehicleTable
     switch (input)
     {
       case 0:
-        bool removed = facility.RemoveVehicle(vehicle.LicensePlate);
+        bool removed = _handler.RemoveVehicle(garage.Name, vehicle.LicensePlate);
+        // bool removed = garage.RemoveVehicle(vehicle.LicensePlate);
 
         if (removed)
         {

@@ -5,6 +5,7 @@ using Garage3.Application;
 using Garage3.Data;
 using Garage3.Domain.Garages;
 using Garage3.UI;
+using Garage3.UI.Table;
 
 internal class Program
 {
@@ -20,8 +21,9 @@ internal class Program
     GarageData data = FetchData(repository);
 
     VehicleFactory vehicleFactory = new();
-    IHandler handler = new GarageHandler(data);
-    ConsoleUI ui = new(handler, vehicleFactory);
+    IHandler handler = new GarageHandler(data, repository);
+    VehicleTable table = new(handler);
+    ConsoleUI ui = new(handler, vehicleFactory, table);
     Console.OutputEncoding = Encoding.UTF8;
 
     ui.Start();
