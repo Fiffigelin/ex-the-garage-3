@@ -131,7 +131,8 @@ public static class Table
     Func<List<string>> header,
     List<string> columnHeader,
     List<int> columnWidths,
-    List<RowData<T>> rows) where T : class
+    List<RowData<T>> rows,
+    Func<List<string>> footer) where T : class
   {
     string line = new string('-', CalculateTableWidth(columnWidths));
     string columns = FormatRow(columnHeader, columnWidths);
@@ -157,6 +158,14 @@ public static class Table
         Console.WriteLine($"{rows[i].Row}");
       }
       Console.WriteLine(line);
+    }
+
+    if (footer is not null)
+    {
+      foreach (string f in footer())
+      {
+        Console.WriteLine(f);
+      }
     }
 
   }

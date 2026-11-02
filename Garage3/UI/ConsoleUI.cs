@@ -66,7 +66,7 @@ public class ConsoleUI : IUI
             ParkVehicleInGarage();
             break;
           case 3:
-            // Service.RemoveVehicle(data);
+            RemoveVehicle();
             break;
           case 4:
             // Service.SearchVehicles(data);
@@ -179,7 +179,7 @@ public class ConsoleUI : IUI
       DisplayMainTitle();
       var vehicles = _handler.GetAllVehicles();
 
-      VehicleTable.ViewAllVehicles(vehicles);
+      VehicleTable.ViewAllVehicles(vehicles, true);
       ConsoleKey key = Console.ReadKey(true).Key;
 
       switch (key)
@@ -321,5 +321,13 @@ public class ConsoleUI : IUI
           throw new ArgumentException("Unknown vehicle type");
         }
     }
+  }
+
+  private void RemoveVehicle()
+  {
+    DisplayMainTitle();
+    List<VehicleSearchResult> results = [.. _handler.GetAllVehicles()];
+
+    VehicleTable.ViewVehicleWithGarageNameTable(results);
   }
 }

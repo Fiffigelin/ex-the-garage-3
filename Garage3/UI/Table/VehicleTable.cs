@@ -82,7 +82,7 @@ public static class VehicleTable
     Table.PrintTable(() => header, columnHeader, columnWidths, rows, showStat ? () => [VehicleStat([.. vehicles])] : () => [""]);
   }
 
-  public static void ViewAllVehicles(IEnumerable<VehicleSearchResult> results)
+  public static void ViewAllVehicles(IEnumerable<VehicleSearchResult> results, bool showStat = false)
   {
     List<int> columnWidths = [1, -14, -10, -12, -10, 6];
     List<string> header = ["Show Vehicles"];
@@ -110,7 +110,7 @@ public static class VehicleTable
       vehicles.Add(result.Vehicle);
     }
 
-    Table.PrintNoIntegrationTable(() => header, columnHeader, columnWidths, rows);
+    Table.PrintNoIntegrationTable(() => header, columnHeader, columnWidths, rows, showStat ? () => [VehicleStat([.. vehicles])] : () => [""]);
   }
 
   private static bool ViewVehicleInformation(IVehicle vehicle, IGarage facility)
