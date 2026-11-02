@@ -1,18 +1,19 @@
 using System.Collections.Generic;
-using Garage3.Domain.Garages;
 using Garage3.Domain.General;
+using Garage3.Domain.Garages;
 using Garage3.Domain.Interface;
+using Garage3.Domain.Vehicles;
 
 public interface IHandler
 {
   // Garage
-  IEnumerable<Garage> GetGarages();
-  IEnumerable<Garage> GetGaragesWithParking();
+  IEnumerable<Garage<Vehicle>> GetGarages();
+  IEnumerable<Garage<Vehicle>> GetGaragesWithParking();
   bool IsGarageNameUnique(string name);
   bool AddGarage(string name, int parkinglots);
 
   //Vehicles
-  bool ParkVehicle(string garageName, IVehicle vehicle);
+  bool ParkVehicle(string garageName, Vehicle vehicle);
   bool RemoveVehicle(string garageName, string licenseplate);
 
   // Search

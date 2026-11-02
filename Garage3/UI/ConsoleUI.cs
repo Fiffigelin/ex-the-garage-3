@@ -7,9 +7,9 @@ using Garage3.UI.Table;
 using Garage3.Domain.General;
 using Garage3.UI.Emoji;
 using Garage3.Domain.Vehicles;
-using Garage3.Domain.Garages;
 using Garage3.Domain.Interface;
 using Garage3.Application;
+using Garage3.Domain.Garages;
 
 namespace Garage3.UI;
 
@@ -229,7 +229,7 @@ public class ConsoleUI : IUI
           return;
         }
 
-        Garage selectedGarage = garages[input];
+        Garage<Vehicle> selectedGarage = garages[input];
 
         VehicleType? type = ConsoleEmoji.ChooseVehicleType();
 
@@ -238,7 +238,7 @@ public class ConsoleUI : IUI
           continue;
         }
 
-        IVehicle vehicle = CreateVehicle(type.Value);
+        Vehicle vehicle = CreateVehicle(type.Value);
 
         bool success = _handler.ParkVehicle(
           selectedGarage.Name,
@@ -252,7 +252,7 @@ public class ConsoleUI : IUI
     }
   }
 
-  private IVehicle CreateVehicle(
+  private Vehicle CreateVehicle(
     VehicleType type
   )
   {

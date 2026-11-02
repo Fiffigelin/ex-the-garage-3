@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Garage3.Domain.Interface;
+using Garage3.Domain.Vehicles;
 
 namespace Garage3.Domain.Garages;
 
 public class GarageData
 {
-  private List<Garage> _garages = [];
+  private List<Garage<Vehicle>> _garages = [];
 
-  public IEnumerable<Garage> Garages => _garages;
+  public IEnumerable<Garage<Vehicle>> Garages => _garages;
 
-  public void AddFacility(Garage facility)
+  public void AddFacility(Garage<Vehicle> facility)
   {
     ArgumentNullException.ThrowIfNull(facility);
 
@@ -41,12 +41,12 @@ public class GarageData
     ));
   }
 
-  public IEnumerable<IVehicle> GetAllVehicles()
+  public IEnumerable<Vehicle> GetAllVehicles()
   {
     return _garages.SelectMany(garage => garage.Vehicles);
   }
 
-  public IEnumerable<Garage> GetAvailableGarages()
+  public IEnumerable<Garage<Vehicle>> GetAvailableGarages()
   {
     return _garages.Where(g => g.ParkingLots - g.Vehicles.Count() != 0);
   }

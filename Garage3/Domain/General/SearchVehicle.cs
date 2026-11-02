@@ -6,7 +6,7 @@ using Garage3.Domain.Vehicles;
 namespace Garage3.Domain.General;
 
 // flyttade record hit. Kanske fel ställe, ska fundera lite på detta
-public sealed record VehicleSearchResult(Garage Garage, IVehicle Vehicle);
+public sealed record VehicleSearchResult(Garage<Vehicle> Garage, IVehicle Vehicle);
 
 public sealed record SearchVehicle(
   string? LicensePlate = null,

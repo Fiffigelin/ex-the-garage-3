@@ -3,12 +3,12 @@ using Garage3.Domain.Vehicles;
 
 namespace Garage3.Domain.Interface;
 
-public interface IGarage
+public interface IGarage<T>
 {
-  public IEnumerable<IVehicle> Vehicles { get; }
+  public IEnumerable<T> Vehicles { get; }
   public string Name { get; }
   public int ParkingLots { get; }
 
-  public bool AddVehicle(IVehicle vehicle);
+  public bool AddVehicle(T vehicle);
   bool RemoveVehicle(string licenseplate);
 }

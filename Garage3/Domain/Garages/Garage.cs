@@ -1,14 +1,16 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Garage3.Domain.Interface;
+using Garage3.Domain.Vehicles;
 
 namespace Garage3.Domain.Garages;
 
-public class Garage : IGarage
+public class Garage<T> : IGarage<T>, IEnumerable<T> where T : Vehicle
 {
-  private readonly List<IVehicle> _vehicles = [];
-  public IEnumerable<IVehicle> Vehicles => _vehicles;
+  private readonly List<T> _vehicles = [];
+  public IEnumerable<T> Vehicles => _vehicles;
   public string Name { get; }
   public int ParkingLots { get; }
   public const int MaxParkingLots = 200;
@@ -31,7 +33,7 @@ public class Garage : IGarage
     _vehicles = [];
   }
 
-  public bool AddVehicle(IVehicle vehicle)
+  public bool AddVehicle(T vehicle)
   {
     ArgumentNullException.ThrowIfNull(vehicle);
 
@@ -59,7 +61,7 @@ public class Garage : IGarage
   {
     ArgumentNullException.ThrowIfNull(licenseplate);
 
-    IVehicle? vehicle = _vehicles.FirstOrDefault(v =>
+    T? vehicle = _vehicles.FirstOrDefault(v =>
     string.Equals(
       v.LicensePlate,
       licenseplate.Trim(),
@@ -73,4 +75,8 @@ public class Garage : IGarage
 
     return _vehicles.Remove(vehicle);
   }
+
+  public IEnumerator<T> GetEnumerator() => _vehicles.GetEnumerator();
+
+  IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

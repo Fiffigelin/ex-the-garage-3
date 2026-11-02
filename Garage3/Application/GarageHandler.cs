@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Garage3.Domain.Garages;
 using Garage3.Domain.General;
-using Garage3.Domain.Interface;
+using Garage3.Domain.Vehicles;
 
 namespace Garage3.Application;
 
@@ -29,7 +29,7 @@ public class GarageHandler : IHandler
       return false;
     }
 
-    var garage = new Garage(name, parkinglots);
+    var garage = new Garage<Vehicle>(name, parkinglots);
 
     _data.AddFacility(garage);
     return true;
@@ -45,17 +45,17 @@ public class GarageHandler : IHandler
   //   return _data.Garages;
   // }
 
-  public IEnumerable<Garage> GetGarages()
+  public IEnumerable<Garage<Vehicle>> GetGarages()
   {
     return _data.Garages;
   }
 
-  public IEnumerable<Garage> GetGaragesWithParking()
+  public IEnumerable<Garage<Vehicle>> GetGaragesWithParking()
   {
     return _data.GetAvailableGarages();
   }
 
-  public bool ParkVehicle(string garageName, IVehicle vehicle)
+  public bool ParkVehicle(string garageName, Vehicle vehicle)
   {
     ArgumentNullException.ThrowIfNull(vehicle);
 
@@ -64,7 +64,7 @@ public class GarageHandler : IHandler
       return false;
     }
 
-    Garage? garage = _data.Garages.FirstOrDefault(g =>
+    Garage<Vehicle>? garage = _data.Garages.FirstOrDefault(g =>
     string.Equals(
       g.Name,
       garageName,
@@ -81,7 +81,7 @@ public class GarageHandler : IHandler
 
   public bool RemoveVehicle(string garageName, string licenseplate)
   {
-    Garage? garage = _data.Garages.FirstOrDefault(g =>
+    Garage<Vehicle>? garage = _data.Garages.FirstOrDefault(g =>
     string.Equals(
       g.Name,
       garageName,

@@ -13,7 +13,7 @@ namespace Garage3.UI.Table;
 
 public static class VehicleTable
 {
-  public static void ViewVehiclesTable(Garage garage)
+  public static void ViewVehiclesTable(Garage<Vehicle> garage)
   {
     List<int> columnWidths = [1, 12, 12, 10, 10];
     List<string> columnHeader = ["", "License", "Type", "Color", "Wheels"];
@@ -113,7 +113,7 @@ public static class VehicleTable
     Table.PrintNoIntegrationTable(() => header, columnHeader, columnWidths, rows, showStat ? () => [VehicleStat([.. vehicles])] : () => [""]);
   }
 
-  private static bool ViewVehicleInformation(IVehicle vehicle, IGarage facility)
+  private static bool ViewVehicleInformation(IVehicle vehicle, IGarage<Vehicle> facility)
   {
     List<string> options = ["Exit Parking", "Back"];
 

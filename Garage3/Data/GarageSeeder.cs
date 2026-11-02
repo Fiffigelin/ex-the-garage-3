@@ -25,7 +25,7 @@ public static class GarageSeeder
 
     foreach (GarageSeedItem item in seedData.Garages)
     {
-      Garage garage = new(item.Name, item.ParkingLots);
+      Garage<Vehicle> garage = new(item.Name, item.ParkingLots);
 
       foreach (VehicleSeedItem vehicleItem in item.Vehicles)
       {
