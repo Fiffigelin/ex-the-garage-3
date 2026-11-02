@@ -4,7 +4,7 @@ using Garage3.Domain.Vehicles;
 
 namespace Garage3.Data;
 
-public static class VehicleFactory
+public static class VehicleSeedFactory
 {
     public static Vehicle Create(VehicleSeedItem item)
     {

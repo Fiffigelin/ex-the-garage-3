@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Garage3.Domain.Vehicles;
+using System.Linq;
+using Garage3.Domain.Interface;
 
 namespace Garage3.Domain.Garages;
 
@@ -8,7 +9,7 @@ public class GarageData
 {
   private List<Garage> _garages = [];
 
-  public IReadOnlyList<Garage> Garages => _garages;
+  public IEnumerable<Garage> Garages => _garages;
 
   public void AddFacility(Garage facility)
   {
@@ -19,58 +20,35 @@ public class GarageData
 
   public bool IsNameUnique(string name)
   {
-    foreach (Garage facility in _garages)
-    {
-      if (string.Equals(
-        facility.Name,
-        name,
-        StringComparison.OrdinalIgnoreCase
-      ))
-      {
-        return false;
-      }
-    }
+    ArgumentNullException.ThrowIfNull(name);
 
-    return true;
+    return !_garages.Any(g =>
+    string.Equals(
+      g.Name,
+      name.Trim(),
+      StringComparison.OrdinalIgnoreCase
+    ));
   }
 
-  public List<Garage> AvailableParking()
-  {
-    List<Garage> available = [];
-
-    foreach (Garage garage in _garages)
-    {
-      if (garage.Vehicles.Count < garage.ParkingLots)
-      {
-        available.Add(garage);
-      }
-    }
-
-    return available;
-  }
-
-  // bättre läsbarhet, ändrade pf till garage i foreachen
   public bool IsLicenseplateUnique(string license)
   {
     ArgumentException.ThrowIfNullOrWhiteSpace(license);
 
-    foreach (Garage garage in _garages)
-    {
-      List<Vehicle> vehicles = [.. garage.Vehicles];
+    return !_garages.SelectMany(g => g.Vehicles).Any(v => string.Equals(
+      v.LicensePlate,
+      license.Trim(),
+      StringComparison.OrdinalIgnoreCase
+    ));
+  }
 
-      foreach (Vehicle? vh in vehicles)
-      {
-        if (string.Equals(
-            vh.LicensePlate,
-            license.Trim(),
-            StringComparison.OrdinalIgnoreCase))
-        {
-          return false;
-        }
-      }
-    }
+  public IEnumerable<IVehicle> GetAllVehicles()
+  {
+    return _garages.SelectMany(garage => garage.Vehicles);
+  }
 
-    return true;
+  public IEnumerable<Garage> GetAvailableGarages()
+  {
+    return _garages.Where(g => g.ParkingLots - g.Vehicles.Count() != 0);
   }
 }
 

@@ -29,7 +29,7 @@ public static class GarageSeeder
 
       foreach (VehicleSeedItem vehicleItem in item.Vehicles)
       {
-        Vehicle vehicle = VehicleFactory.Create(vehicleItem);
+        Vehicle vehicle = VehicleSeedFactory.Create(vehicleItem);
 
         if (!garage.AddVehicle(vehicle))
         {

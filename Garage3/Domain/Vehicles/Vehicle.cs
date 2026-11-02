@@ -1,15 +1,15 @@
 using System;
 using System.Text.RegularExpressions;
 using Garage3.Domain.General;
+using Garage3.Domain.Interface;
 
 namespace Garage3.Domain.Vehicles;
 
-public abstract class Vehicle
+public abstract class Vehicle : IVehicle
 {
   // bytte ut mot egen regex som är lite snällare XD
   private const string LicensePlatePattern =
   @"[a-zA-Z]{3}[0-9]{2}[a-zA-Z|0-9]";
-  // @"^[a-zA-Z]{3}[0-9]{2}[a-zA-Z|0-9]$";
   public VehicleType Type { get; }
   public string Color { get; }
   public int NumberOfWheels { get; }

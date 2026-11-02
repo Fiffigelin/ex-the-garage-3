@@ -4,7 +4,6 @@ using Garage3.Domain.General;
 
 namespace Garage3.UI.Emoji;
 
-// nytt namn som beskriver tydligare funktionerna i filen
 public static class ConsoleEmoji
 {
   public static string PrintVehicleType(VehicleType vehicle)
@@ -30,7 +29,6 @@ public static class ConsoleEmoji
   {
     List<VehicleType> types = [.. Enum.GetValues<VehicleType>()];
 
-    // buggfix: jag hade helt glömt bort att skriva in menyn
     List<string> options = [option, $"{PrintVehicleType(VehicleType.Car)} Car",
       $"{PrintVehicleType(VehicleType.Motorcycle)} Motorcycle",
       $"{PrintVehicleType(VehicleType.Bus)} Bus",

@@ -6,10 +6,12 @@ namespace Garage3.UI.Output;
 
 public static class ConsoleOutput
 {
-  public static void ParkingCar(VehicleType type)
+  public static void ParkingCar(VehicleType type, bool success)
   {
-    Console.WriteLine(
-        $"Congrats! Your {type.ToString().ToLower()} {ConsoleEmoji.PrintVehicleType(type)} has been parked!");
+    string message = success == true ? $"Congrats! Your {type.ToString().ToLower()} {ConsoleEmoji.PrintVehicleType(type)} has been parked!"
+    : "Could not park vehicle.";
+
+    Console.WriteLine(message);
   }
 
   public static void NoMoreLots(VehicleType type)

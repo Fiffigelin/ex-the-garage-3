@@ -1,20 +1,24 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using Garage3.Application;
 using Garage3.Data;
 using Garage3.Domain.Garages;
 using Garage3.UI;
 
 internal class Program
 {
-  private static readonly GarageData GarageData = new();
   private static void Main(string[] args)
   {
-    FetchSeedData(GarageData);
-    ConsoleApp.MainMenu(GarageData);
-  }
+    GarageData data = new();
+    VehicleFactory vehicleFactory = new();
+    IHandler handler = new GarageHandler(data);
+    ConsoleUI ui = new(handler, vehicleFactory);
 
-  private static void FetchSeedData(GarageData data)
+    FetchSeedData(data);
+    ui.Start();
+  }
+  public static void FetchSeedData(GarageData data)
   {
     string filePath = Path.Combine(
       AppContext.BaseDirectory,

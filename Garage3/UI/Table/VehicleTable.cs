@@ -6,6 +6,8 @@ using Garage3.Domain.Vehicles;
 using Garage3.Domain.General;
 using Garage3.UI.Emoji;
 using Garage3.UI.Output;
+using Garage3.Domain.Interface;
+using System.Linq;
 
 namespace Garage3.UI.Table;
 
@@ -16,8 +18,8 @@ public static class VehicleTable
     List<int> columnWidths = [1, 12, 12, 10, 10];
     List<string> columnHeader = ["", "License", "Type", "Color", "Wheels"];
 
-    List<RowData<Vehicle>> rows = [];
-    foreach (Vehicle vehicle in garage.Vehicles)
+    List<RowData<IVehicle>> rows = [];
+    foreach (IVehicle vehicle in garage.Vehicles)
     {
       if (vehicle is not null)
       {
@@ -40,7 +42,7 @@ public static class VehicleTable
       () => [
         $"Facility: {garage.Name}",
         $"Amount of Parkinglots: {garage.ParkingLots}",
-        $"Free Parkinglots: {garage.ParkingLots - garage.Vehicles.Count}"
+        $"Free Parkinglots: {garage.ParkingLots - garage.Vehicles.Count()}"
       ],
       columnHeader,
       columnWidths,
@@ -80,7 +82,7 @@ public static class VehicleTable
     Table.PrintTable(() => header, columnHeader, columnWidths, rows, showStat ? () => [VehicleStat([.. vehicles])] : () => [""]);
   }
 
-  public static void ViewAllVehicles(List<VehicleSearchResult> results)
+  public static void ViewAllVehicles(IEnumerable<VehicleSearchResult> results)
   {
     List<int> columnWidths = [1, -14, -10, -12, -10, 6];
     List<string> header = ["Show Vehicles"];
@@ -111,7 +113,7 @@ public static class VehicleTable
     Table.PrintNoIntegrationTable(() => header, columnHeader, columnWidths, rows);
   }
 
-  private static bool ViewVehicleInformation(Vehicle vehicle, Garage facility)
+  private static bool ViewVehicleInformation(IVehicle vehicle, IGarage facility)
   {
     List<string> options = ["Exit Parking", "Back"];
 
@@ -120,7 +122,7 @@ public static class VehicleTable
     switch (input)
     {
       case 0:
-        bool removed = facility.RemoveVehicle(vehicle);
+        bool removed = facility.RemoveVehicle(vehicle.LicensePlate);
 
         if (removed)
         {
@@ -141,7 +143,7 @@ public static class VehicleTable
     }
   }
 
-  private static string VehicleStat(List<Vehicle> vehicles)
+  private static string VehicleStat(List<IVehicle> vehicles)
   {
     int car = 0;
     int bus = 0;

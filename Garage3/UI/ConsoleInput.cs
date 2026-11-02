@@ -61,4 +61,34 @@ public static class ConsoleInput
       Console.WriteLine(errorMessage);
     }
   }
+
+  public static int NumberOfProperty(string message)
+  {
+    return Read<int>(
+      message,
+      "You need to enter a value higher than 0 and no more than 8. Please try again!",
+      int.TryParse,
+      wheels => wheels > 0 && wheels <= 8
+    );
+  }
+
+  public static bool TextToBool(string message)
+  {
+    while (true)
+    {
+      int input = ConsoleMenu.MenuHandler([message], ["Yes", "No"]);
+
+      switch (input)
+      {
+        case -1:
+          continue;
+        case 0:
+          return true;
+        case 1:
+          return false;
+        default:
+          throw new ArgumentException("Ops, something went wrong!");
+      }
+    }
+  }
 }

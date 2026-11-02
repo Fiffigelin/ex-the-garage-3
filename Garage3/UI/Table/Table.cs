@@ -35,7 +35,7 @@ public static class Table
     while (true)
     {
       Console.Clear();
-      ConsoleApp.DisplayMainTitle();
+      ConsoleUI.DisplayMainTitle();
       Console.WriteLine();
 
       foreach (string s in header())

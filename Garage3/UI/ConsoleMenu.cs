@@ -18,7 +18,7 @@ public static class ConsoleMenu
 
     while (true)
     {
-      ConsoleApp.DisplayMainTitle();
+      ConsoleUI.DisplayMainTitle();
 
       foreach (string text in previousTexts)
       {

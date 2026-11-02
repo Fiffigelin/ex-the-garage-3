@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Garage3.Domain.Vehicles;
+using System.Linq;
+using Garage3.Domain.Interface;
 
 namespace Garage3.Domain.Garages;
 
-public class Garage
+public class Garage : IGarage
 {
-  private readonly List<Vehicle> _vehicles = [];
-  public IReadOnlyList<Vehicle> Vehicles => _vehicles;
+  private readonly List<IVehicle> _vehicles = [];
+  public IEnumerable<IVehicle> Vehicles => _vehicles;
   public string Name { get; }
   public int ParkingLots { get; }
   public const int MaxParkingLots = 200;
@@ -30,39 +31,46 @@ public class Garage
     _vehicles = [];
   }
 
-  public bool AddVehicle(Vehicle vehicle)
+  public bool AddVehicle(IVehicle vehicle)
   {
     ArgumentNullException.ThrowIfNull(vehicle);
-    foreach (Vehicle vh in _vehicles)
+
+    if (_vehicles.Count == ParkingLots)
     {
-      if (vh.LicensePlate == vehicle.LicensePlate)
-      {
-        return false;
-      }
+      return false;
+    }
+
+    if (_vehicles.Any(v =>
+      string.Equals(
+        v.LicensePlate,
+        vehicle.LicensePlate,
+        StringComparison.OrdinalIgnoreCase
+      )
+    ))
+    {
+      return false;
     }
 
     _vehicles.Add(vehicle);
     return true;
   }
 
-  public bool RemoveVehicle(Vehicle vehicle)
+  public bool RemoveVehicle(string licenseplate)
   {
-    ArgumentNullException.ThrowIfNull(vehicle);
+    ArgumentNullException.ThrowIfNull(licenseplate);
 
-    foreach (Vehicle vh in _vehicles)
+    IVehicle? vehicle = _vehicles.FirstOrDefault(v =>
+    string.Equals(
+      v.LicensePlate,
+      licenseplate.Trim(),
+      StringComparison.OrdinalIgnoreCase
+    ));
+
+    if (vehicle is null)
     {
-      if (vh.LicensePlate == vehicle.LicensePlate)
-      {
-        _vehicles.Remove(vh);
-        return true;
-      }
+      return false;
     }
 
-    return false;
-  }
-
-  public int CountParkedVehicles()
-  {
-    return _vehicles.Count;
+    return _vehicles.Remove(vehicle);
   }
 }
