@@ -57,7 +57,7 @@ public class GarageTests
         var garage = new Garage<Vehicle>("Tre", Garage<Vehicle>.MaxParkingLots, [VehicleType.Car]);
 
         // Assert
-        Assert.Equal(200, garage.ParkingLots);
+        Assert.Equal(200, garage.TotalParkingLots);
     }
 
     // add vehicle
@@ -93,6 +93,22 @@ public class GarageTests
         Assert.False(result);
         Assert.DoesNotContain(boat, garage.Vehicles); // <== denna var svår att förstå från dokumentationen
         // behövde se ett exempel som jag kunda ta till mig: https://hamidmosalla.com/2020/01/12/xunit-part-2-value-and-type-based-assertions-in-xunit/
+    }
+
+    [Fact]
+    public void Vehicles_TakeDifferent_AmountsOfParkingSpace()
+    {
+        var motorcycle = new Motorcycle("red", 2, "abc123", false);
+        var car = new Car("red", 4, "bcd123", 3, false);
+        var bus = new Bus("red", 6, "cde123", 52);
+        var boat = new Boat("red", 0, "def123", 4);
+        var airplane = new Airplane("red", 3, "efg123", 50);
+
+        Assert.Equal(1, motorcycle.ParkingCells);
+        Assert.Equal(3, car.ParkingCells);
+        Assert.Equal(6, bus.ParkingCells);
+        Assert.Equal(9, boat.ParkingCells);
+        Assert.Equal(15, airplane.ParkingCells);
     }
 
     [Theory]
@@ -166,5 +182,27 @@ public class GarageTests
 
         //Assert
         Assert.Throws<ArgumentNullException>(() => garage.RemoveVehicle(null!));
+    }
+
+    [Fact]
+    public void GetAvailableGarages_ShouldAccountForVehicleSize()
+    {
+        // Arrange
+        var data = new GarageData();
+        var smallGarage = new Garage<Vehicle>("Small", 2, [VehicleType.Airplane]);
+        var largeGarage = new Garage<Vehicle>("Large", 10, [VehicleType.Airplane]);
+
+        data.AddGarage(smallGarage);
+        data.AddGarage(largeGarage);
+
+        var airplane = new Airplane("Red", 3, "fly123", 52);
+
+        // Act
+        List<Garage<Vehicle>> garageOptions = [.. data.GetAvailableGarages(airplane.ParkingCells)];
+
+        // Assert
+        Assert.Single(garageOptions);
+        Assert.Contains(garageOptions, g => g.Name == "Large");
+        Assert.DoesNotContain(garageOptions, g => g.Name == "Small");
     }
 }

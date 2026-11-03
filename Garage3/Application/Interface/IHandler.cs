@@ -7,7 +7,7 @@ public interface IHandler
 {
   // Garage
   IEnumerable<Garage<Vehicle>> GetGarages();
-  IEnumerable<Garage<Vehicle>> GetAvailableGarages(VehicleType type);
+  IEnumerable<Garage<Vehicle>> GetAvailableGarages(VehicleType type, int parkingCells);
   bool IsGarageNameUnique(string name);
   bool AddGarage(string name, int parkinglots, List<VehicleType> types);
 

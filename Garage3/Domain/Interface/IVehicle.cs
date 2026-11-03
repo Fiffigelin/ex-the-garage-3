@@ -8,6 +8,7 @@ public interface IVehicle
   public string Color { get; }
   public int NumberOfWheels { get; }
   public string LicensePlate { get; }
+  public abstract int ParkingCells { get; }
 
   string GetInfo();
 }

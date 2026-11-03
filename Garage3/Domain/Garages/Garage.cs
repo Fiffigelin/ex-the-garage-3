@@ -15,8 +15,20 @@ public class Garage<T> : IGarage<T>, IEnumerable<T> where T : Vehicle
   public IEnumerable<T> Vehicles => _vehicles;
   public IEnumerable<VehicleType> Types => _types;
   public string Name { get; }
-  public int ParkingLots { get; }
+  public int ParkingCells { get; }
+  public int TotalParkingLots =>
+    ParkingCells / CellsPerParkingLot;
+  public int UsedCells =>
+  _vehicles.Sum(v => v.ParkingCells);
+  public int AvailableCells =>
+    ParkingCells - UsedCells;
+  public int AvailableWholeParkingLots =>
+    AvailableCells / CellsPerParkingLot;
+  public int RemainingCells =>
+      AvailableCells % CellsPerParkingLot;
+
   public const int MaxParkingLots = 200;
+  public const int CellsPerParkingLot = 3;
   public const int MinNameLength = 3;
 
   public Garage(string name, int parkingLots, List<VehicleType> types)
@@ -42,7 +54,7 @@ public class Garage<T> : IGarage<T>, IEnumerable<T> where T : Vehicle
     }
 
     Name = name;
-    ParkingLots = parkingLots;
+    ParkingCells = parkingLots * CellsPerParkingLot;
     _vehicles = [];
     _types = types;
   }
@@ -51,7 +63,7 @@ public class Garage<T> : IGarage<T>, IEnumerable<T> where T : Vehicle
   {
     ArgumentNullException.ThrowIfNull(vehicle);
 
-    if (_vehicles.Count == ParkingLots)
+    if (UsedCells + vehicle.ParkingCells > ParkingCells)
     {
       return false;
     }

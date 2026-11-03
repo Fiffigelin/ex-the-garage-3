@@ -13,7 +13,7 @@ public class GarageStorageData
 public class GarageStorageItem
 {
   public string Name { get; set; } = "";
-  public int ParkingLots { get; set; }
+  public int ParkingCells { get; set; }
   public List<VehicleStorageItem> Vehicles { get; set; } = [];
   public List<VehicleType> Types { get; set; } = [];
 }

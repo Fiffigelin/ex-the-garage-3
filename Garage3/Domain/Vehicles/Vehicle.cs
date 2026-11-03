@@ -14,6 +14,7 @@ public abstract class Vehicle : IVehicle
   public string Color { get; }
   public int NumberOfWheels { get; }
   public string LicensePlate { get; }
+  public abstract int ParkingCells { get; }
 
   // kan nås av sina barnklasser men man ska inte kunna skapa en instans av Vehicle
   protected Vehicle(VehicleType type, string color, int numberOfWheels, string licensePlate)

@@ -59,12 +59,17 @@ public class VehicleTable
       }
     }
 
+    string parkingLots = garage.RemainingCells > 0
+      && garage.Types.Contains(VehicleType.Motorcycle)
+        ? $"{garage.AvailableWholeParkingLots} vacant parkinglots and space for {garage.RemainingCells} motorcycles\n"
+        : $"{garage.AvailableWholeParkingLots}\n";
+
     Table.PrintTable(
       () => [
         $"Garage: {garage.Name}",
         $"VehicleTypes: {types}",
-        $"Total Parkinglots: {garage.ParkingLots}",
-        $"Free Parkinglots: {garage.ParkingLots - garage.Vehicles.Count()}"
+        $"Total Parkinglots: {garage.TotalParkingLots}",
+        $"Vacant Parkinglots: {parkingLots}"
       ],
       columnHeader,
       columnWidths,
@@ -145,7 +150,6 @@ public class VehicleTable
     {
       case 0:
         bool removed = _handler.RemoveVehicle(garage.Name, vehicle.LicensePlate);
-        // bool removed = garage.RemoveVehicle(vehicle.LicensePlate);
 
         if (removed)
         {
@@ -196,7 +200,6 @@ public class VehicleTable
       }
     }
 
-    //refaktorering: lägger till skriven text också då emojisarna inte verkar fungera överallt
     return $"Car {ConsoleEmoji.PrintVehicleType(VehicleType.Car)} : {car} | Bus {ConsoleEmoji.PrintVehicleType(VehicleType.Bus)} : {bus} | Motorcycle {ConsoleEmoji.PrintVehicleType(VehicleType.Motorcycle)} : {motorcycle} | Airplane {ConsoleEmoji.PrintVehicleType(VehicleType.Airplane)} : {airplane} | Boat {ConsoleEmoji.PrintVehicleType(VehicleType.Boat)} : {boat}";
   }
 }

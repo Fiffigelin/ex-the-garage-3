@@ -47,9 +47,9 @@ public class GarageData
     ));
   }
 
-  public IEnumerable<Garage<Vehicle>> GetAvailableGarages()
+  public IEnumerable<Garage<Vehicle>> GetAvailableGarages(int vehicleCells)
   {
-    return _garages.Where(g => g.ParkingLots - g.Vehicles.Count() != 0);
+    return _garages.Where(g => g.AvailableCells >= vehicleCells);
   }
 }
 

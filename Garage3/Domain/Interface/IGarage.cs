@@ -7,7 +7,7 @@ public interface IGarage<T>
 {
   public IEnumerable<T> Vehicles { get; }
   public string Name { get; }
-  public int ParkingLots { get; }
+  public int ParkingCells { get; }
 
   public bool AddVehicle(T vehicle);
   bool RemoveVehicle(string licenseplate);

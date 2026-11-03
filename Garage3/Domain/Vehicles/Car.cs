@@ -11,6 +11,8 @@ public class Car : Vehicle
 
   public bool IsElectric { get; }
 
+  public override int ParkingCells => 3;
+
   public Car(string color, int numberOfWheels, string licensePlate, int numberOfDoors, bool isElectric)
       : base(VehicleType.Car, color, numberOfWheels, licensePlate)
   {

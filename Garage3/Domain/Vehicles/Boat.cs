@@ -6,6 +6,7 @@ namespace Garage3.Domain.Vehicles;
 public class Boat : Vehicle
 {
   public int NumberOfEngines { get; }
+  public override int ParkingCells => 9;
 
   public Boat(string color, int numberOfWheels, string licensePlate, int numberOfEngines)
       : base(VehicleType.Boat, color, numberOfWheels, licensePlate)

@@ -9,6 +9,7 @@ using Garage3.UI.Emoji;
 using Garage3.Domain.Vehicles;
 using Garage3.Application;
 using Garage3.Domain.Garages;
+using Garage.Domain.General;
 
 namespace Garage3.UI;
 
@@ -230,7 +231,9 @@ public class ConsoleUI : IUI
       while (true)
       {
         VehicleType type = ConsoleEmoji.ChooseVehicleType();
-        var garages = _handler.GetAvailableGarages(type);
+        int cells = VehicleInfo.GetParkingCells(type);
+
+        var garages = _handler.GetAvailableGarages(type, cells);
 
         if (!garages.Any())
         {
