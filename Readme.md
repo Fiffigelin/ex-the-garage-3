@@ -107,6 +107,13 @@ Testerna ska fokusera på publika metoder i `Garage` enligt uppgiften och följa
 2. **Act** – anropa metoden som testas.
 3. **Assert** – kontrollera resultatet.
 
+En funktionalitet där jag har kört TDD är att garage håller en till flera fordonstyper.
+Förberedelserna var att sitta och fundera flödet, vilka metoder som påverkades, vad klassen behöver. 
+
+Jag skrev testet och råkade göra en Assert fel men i det stora hela var det smidigt.
+
+<img width="462" height="692" alt="garage_vehicletype" src="https://github.com/user-attachments/assets/48a53d8b-444c-4f53-91ee-d2c7ecb3d467" />
+
 
 ## Teknik
 
