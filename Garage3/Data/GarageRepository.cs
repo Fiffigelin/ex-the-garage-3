@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Garage3.Domain.Garages;
 
 namespace Garage3.Data;
@@ -8,11 +9,16 @@ namespace Garage3.Data;
 public class GarageRepository
 {
   private readonly string _filePath;
-
+  // skriver om enum till strängar för lättare felsökning av människor
+  // https://stackoverflow.com/questions/63606109/initializing-jsonserializeroptions-with-converters
   private readonly JsonSerializerOptions _options = new()
   {
     WriteIndented = true,
-    PropertyNameCaseInsensitive = true
+    PropertyNameCaseInsensitive = true,
+    Converters =
+    {
+      new JsonStringEnumConverter()
+    }
   };
 
   public GarageRepository(string filePath)

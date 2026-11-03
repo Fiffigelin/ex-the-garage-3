@@ -156,18 +156,38 @@ public class ConsoleUI : IUI
 
     );
 
-    // TODO: Skapa en meny där användaren kan välja alla, en eller flera typer av fordon
-    List<VehicleType> types = [VehicleType.Car, VehicleType.Motorcycle, VehicleType.Bus, VehicleType.Boat, VehicleType.Airplane];
+    List<MultibleMenuItem<VehicleType>> options =
+    [
+      new(VehicleType.Car, $"{ConsoleEmoji.PrintVehicleType(VehicleType.Car)} Car"),
+      new(VehicleType.Motorcycle, $"{ConsoleEmoji.PrintVehicleType(VehicleType.Motorcycle)} Motorcycle"),
+      new(VehicleType.Bus, $"{ConsoleEmoji.PrintVehicleType(VehicleType.Bus)} Bus"),
+      new(VehicleType.Boat, $"{ConsoleEmoji.PrintVehicleType(VehicleType.Boat)} Boat"),
+      new(VehicleType.Airplane, $"{ConsoleEmoji.PrintVehicleType(VehicleType.Airplane)} Airplane")
+    ];
+
+    List<VehicleType> types = [];
+    do
+    {
+      types = ConsoleMenu.MultibleMenuHandler(["Choose one or more vehicle types for your garage"], options);
+
+      if (types.Count == 0)
+      {
+        Console.WriteLine("You need to enter atleast one vehicle type");
+      }
+
+    } while (types.Count == 0);
 
     try
     {
       bool success = _handler.AddGarage(name, parkinglots, types);
-      string message = success ? $"\nParking facility '{name}' has been added with {parkinglots} lots" : "Could not save the garage. Please try again!";
+      string type = types.Count > 1 ? "multible vehicles" : $"vehicletype {ConsoleEmoji.PrintVehicleType(types[0])} {types[0]}";
+      string message = success ? $"\nParking facility '{name}' has been added with {parkinglots} lots and can hold {type}" : "Could not save the garage. Please try again!";
       Console.WriteLine(message);
     }
     catch (ArgumentException ex)
     {
       Console.WriteLine($"\nSomething happened: {ex.Message}");
+      Console.ReadLine();
     }
     finally
     {

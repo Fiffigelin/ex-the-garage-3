@@ -44,10 +44,26 @@ public class VehicleTable
       }
     }
 
+    string types = string.Empty;
+    for (int i = 0; i < garage.Types.Count(); i++)
+    {
+      VehicleType type = garage.Types.ElementAt(i);
+
+      if (i == garage.Types.Count() - 1)
+      {
+        types += $"{ConsoleEmoji.PrintVehicleType(type)}  {type}";
+      }
+      else
+      {
+        types += $"{ConsoleEmoji.PrintVehicleType(type)}  {type} |";
+      }
+    }
+
     Table.PrintTable(
       () => [
-        $"Facility: {garage.Name}",
-        $"Amount of Parkinglots: {garage.ParkingLots}",
+        $"Garage: {garage.Name}",
+        $"VehicleTypes: {types}",
+        $"Total Parkinglots: {garage.ParkingLots}",
         $"Free Parkinglots: {garage.ParkingLots - garage.Vehicles.Count()}"
       ],
       columnHeader,

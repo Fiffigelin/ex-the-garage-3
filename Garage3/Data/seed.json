@@ -4,6 +4,13 @@
     {
       "name": "Central Garage",
       "parkingLots": 10,
+      "types": [
+        "Car",
+        "Motorcycle",
+        "Bus",
+        "Boat",
+        "Airplane"
+      ],
       "vehicles": [
         {
           "type": "Car",
@@ -39,14 +46,16 @@
     {
       "name": "East Garage",
       "parkingLots": 50,
+      "types": [
+        "Airplane"
+      ],
       "vehicles": [
         {
-          "type": "Car",
+          "type": "Airplane",
           "color": "Red",
-          "numberOfWheels": 4,
+          "numberOfWheels": 3,
           "licensePlate": "CDE789",
-          "numberOfDoors": 3,
-          "isElectric": true
+          "numberOfPassengers": 85
         },
         {
           "type": "Airplane",
@@ -56,26 +65,18 @@
           "numberOfPassengers": 85
         },
         {
-          "type": "Bus",
+          "type": "Airplane",
           "color": "Green",
-          "numberOfWheels": 6,
+          "numberOfWheels": 3,
           "licensePlate": "BAS123",
-          "numberOfSeats": 40
+          "numberOfPassengers": 12
         },
         {
-          "type": "Boat",
+          "type": "Airplane",
           "color": "Lilac",
-          "numberOfWheels": 0,
+          "numberOfWheels": 3,
           "licensePlate": "CAS456",
-          "numberOfEngines": 2
-        },
-        {
-          "type": "Car",
-          "color": "Black",
-          "numberOfWheels": 4,
-          "licensePlate": "ASL81B",
-          "numberOfDoors": 5,
-          "isElectric": false
+          "numberOfPassengers": 200
         }
       ]
     }
