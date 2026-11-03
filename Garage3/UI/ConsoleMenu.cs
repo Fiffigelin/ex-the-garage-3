@@ -19,7 +19,7 @@ public class MultibleMenuItem<T>
 // ändrade namn för kontinuitet
 public static class ConsoleMenu
 {
-  public static int MenuHandler(List<string> previousTexts, List<string> options)
+  public static int MenuHandler(List<string> previousTexts, List<string> options, bool useEscape = true)
   {
     if (options.Count == 0)
     {
@@ -75,7 +75,12 @@ public static class ConsoleMenu
         case ConsoleKey.Enter:
           return selectedIndex;
         case ConsoleKey.Escape:
-          return -1;
+          if (useEscape)
+          {
+            return -1;
+          }
+
+          break;
         default:
           Console.WriteLine("Använd Enter för att välja.");
           break;

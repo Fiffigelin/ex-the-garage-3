@@ -49,9 +49,10 @@ public class GarageHandler : IHandler
     return _data.Garages;
   }
 
-  public IEnumerable<Garage<Vehicle>> GetAvailableGarages()
+  public IEnumerable<Garage<Vehicle>> GetAvailableGarages(VehicleType type)
   {
-    return _data.GetAvailableGarages();
+
+    return _data.GetAvailableGarages().Where(g => g.Types.Contains(type));
   }
 
   public bool ParkVehicle(string garageName, Vehicle vehicle)

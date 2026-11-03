@@ -216,6 +216,9 @@ public class ConsoleUI : IUI
     }
   }
 
+  // TODO: Ändra så enbart garage visas beroende på vehicletype
+  // SELECT vehicletype THEN show garages that holds type
+  // AND have parkinglots available
   private void ParkVehicleInGarage()
   {
     while (true)
@@ -226,7 +229,8 @@ public class ConsoleUI : IUI
 
       while (true)
       {
-        var garages = _handler.GetAvailableGarages().ToList();
+        VehicleType type = ConsoleEmoji.ChooseVehicleType();
+        var garages = _handler.GetAvailableGarages(type);
 
         if (!garages.Any())
         {
@@ -253,23 +257,16 @@ public class ConsoleUI : IUI
           return;
         }
 
-        Garage<Vehicle> selectedGarage = garages[input];
+        Garage<Vehicle> selectedGarage = garages.ElementAt(input);
 
-        VehicleType? type = ConsoleEmoji.ChooseVehicleType();
-
-        if (type is null)
-        {
-          continue;
-        }
-
-        Vehicle vehicle = CreateVehicle(type.Value);
+        Vehicle vehicle = CreateVehicle(type);
 
         bool success = _handler.ParkVehicle(
           selectedGarage.Name,
           vehicle
         );
 
-        ConsoleOutput.ParkingCar(type.Value, success);
+        ConsoleOutput.ParkingCar(type, success);
         ConsoleOutput.PressKeyToContinue();
         return;
       }

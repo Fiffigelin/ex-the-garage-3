@@ -50,7 +50,7 @@ public static class ConsoleEmoji
     return types[input - 1];
   }
 
-  public static VehicleType? ChooseVehicleType()
+  public static VehicleType ChooseVehicleType()
   {
     List<string> options = [
       $"{PrintVehicleType(VehicleType.Car)} Car",
@@ -61,12 +61,7 @@ public static class ConsoleEmoji
       "Back"
     ];
 
-    int input = ConsoleMenu.MenuHandler(["", "Park a Vehicle", "Type of vehicle", ""], options);
-
-    if (input == -1 || input == options.Count - 1)
-    {
-      return null;
-    }
+    int input = ConsoleMenu.MenuHandler(["", "Park a Vehicle", "Type of vehicle", ""], options, false);
 
     switch (input)
     {
