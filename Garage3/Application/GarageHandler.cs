@@ -24,9 +24,9 @@ public class GarageHandler : IHandler
     return !_data.IsNameTaken(name);
   }
 
-  public bool AddGarage(string name, int parkinglots)
+  public bool AddGarage(string name, int parkinglots, List<VehicleType> types)
   {
-    var garage = new Garage<Vehicle>(name, parkinglots);
+    var garage = new Garage<Vehicle>(name, parkinglots, types);
 
     bool saved = _data.AddGarage(garage);
 

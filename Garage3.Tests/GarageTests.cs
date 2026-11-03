@@ -1,4 +1,5 @@
 ﻿using Garage3.Domain.Garages;
+using Garage3.Domain.General;
 using Garage3.Domain.Vehicles;
 using Garage3.Tests.Fakes;
 
@@ -16,7 +17,7 @@ public class GarageTests
     [InlineData("ab")]
     public void Constructor_InvalidName_ThrowsArgumentException(string name)
     {
-        Assert.Throws<ArgumentException>(() => new Garage<TestBoat>(name, 10));
+        Assert.Throws<ArgumentException>(() => new Garage<TestBoat>(name, 10, [VehicleType.Car]));
     }
 
     [Theory]
@@ -25,7 +26,27 @@ public class GarageTests
     [InlineData(201)]
     public void Constructor_InvalidParkinglosts_ThrowsArgumentException(int parkinglots)
     {
-        Assert.Throws<ArgumentException>(() => new Garage<TestCar>("Test", parkinglots));
+        Assert.Throws<ArgumentException>(() => new Garage<TestCar>("Test", parkinglots, [VehicleType.Car]));
+    }
+
+    [Theory]
+    [InlineData(new VehicleType[] { VehicleType.Car })]
+    [InlineData(new VehicleType[]
+{
+    VehicleType.Car,
+    VehicleType.Bus,
+    VehicleType.Airplane,
+    VehicleType.Motorcycle,
+    VehicleType.Boat
+    })]
+    public void Constructor_AcceptsOneorMoreVehicleTypes_WithoutThrowException(VehicleType[] types)
+    {
+        var garage = new Garage<Vehicle>("Tre", 20, [.. types]);
+
+        Assert.Equal(types.Length, garage.Types.Count());
+
+        Assert.All(types, type =>
+            Assert.Contains(type, garage.Types));
     }
 
     // skapar ett garage
@@ -33,7 +54,7 @@ public class GarageTests
     public void CreateGarage_WithMinimumName_And_MaxParkingLots_DoesNotThrow()
     {
         // Arrange and Act
-        var garage = new Garage<Vehicle>("Tre", Garage<Vehicle>.MaxParkingLots);
+        var garage = new Garage<Vehicle>("Tre", Garage<Vehicle>.MaxParkingLots, [VehicleType.Car]);
 
         // Assert
         Assert.Equal(200, garage.ParkingLots);
@@ -44,7 +65,7 @@ public class GarageTests
     public void AddVehicle_ValidVehicle_ReturnsTrue_And_ParksVehicle()
     {
         // Arrange
-        var garage = new Garage<Vehicle>("Test", 2);
+        var garage = new Garage<Vehicle>("Test", 2, [VehicleType.Car]);
         var vehicle = new TestCar("abc123");
 
         // Act
@@ -59,7 +80,7 @@ public class GarageTests
     public void AddVehicle_WhenGarageIsFull_ReturnsFalse()
     {
         // Arrange
-        var garage = new Garage<Vehicle>("Test", 2);
+        var garage = new Garage<Vehicle>("Test", 2, [VehicleType.Car]);
         garage.AddVehicle(new TestCar("abc123"));
         garage.AddVehicle(new TestCar("abc12d"));
 
@@ -81,7 +102,7 @@ public class GarageTests
     public void AddVehicle_SameLicenseplate_ReturnsFalse(string licenseplate)
     {
         // Arrange
-        var garage = new Garage<Vehicle>("Test", 5);
+        var garage = new Garage<Vehicle>("Test", 5, [VehicleType.Car]);
         garage.AddVehicle(new TestCar("ABC123"));
 
         // Act
@@ -96,7 +117,7 @@ public class GarageTests
     public void AddVehicle_NullVehicle_ThrowsArgumentNullException()
     {
         // Arrange & Act
-        var garage = new Garage<Vehicle>("Test", 1);
+        var garage = new Garage<Vehicle>("Test", 1, [VehicleType.Car]);
 
         // Assert
         Assert.Throws<ArgumentNullException>(() => garage.AddVehicle(null!));
@@ -111,7 +132,7 @@ public class GarageTests
     public void RemoveVehicle_ExistingPlate_ReturnsTrue(string licenseplate)
     {
         // Arrange
-        var garage = new Garage<Vehicle>("Test", 5);
+        var garage = new Garage<Vehicle>("Test", 5, [VehicleType.Car]);
         garage.AddVehicle(new TestCar("ABC123"));
 
         // Act
@@ -126,7 +147,7 @@ public class GarageTests
     public void RemoveVehicle_WrongLicenseplate_ReturnsFalse()
     {
         // Arrange
-        var garage = new Garage<Vehicle>("Test", 5);
+        var garage = new Garage<Vehicle>("Test", 5, [VehicleType.Car]);
         garage.AddVehicle(new TestCar("ABC123"));
 
         // Act
@@ -141,7 +162,7 @@ public class GarageTests
     public void RemoveVehicle_NullLicenseplate_ThrowsArgumentNullException()
     {
         // Arrange & Act
-        var garage = new Garage<Vehicle>("Test", 5);
+        var garage = new Garage<Vehicle>("Test", 5, [VehicleType.Car]);
 
         //Assert
         Assert.Throws<ArgumentNullException>(() => garage.RemoveVehicle(null!));

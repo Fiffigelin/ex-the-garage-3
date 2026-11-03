@@ -156,9 +156,12 @@ public class ConsoleUI : IUI
 
     );
 
+    // TODO: Skapa en meny där användaren kan välja alla, en eller flera typer av fordon
+    List<VehicleType> types = [VehicleType.Car, VehicleType.Motorcycle, VehicleType.Bus, VehicleType.Boat, VehicleType.Airplane];
+
     try
     {
-      bool success = _handler.AddGarage(name, parkinglots);
+      bool success = _handler.AddGarage(name, parkinglots, types);
       string message = success ? $"\nParking facility '{name}' has been added with {parkinglots} lots" : "Could not save the garage. Please try again!";
       Console.WriteLine(message);
     }

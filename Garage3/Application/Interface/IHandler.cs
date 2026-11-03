@@ -9,7 +9,7 @@ public interface IHandler
   IEnumerable<Garage<Vehicle>> GetGarages();
   IEnumerable<Garage<Vehicle>> GetAvailableGarages();
   bool IsGarageNameUnique(string name);
-  bool AddGarage(string name, int parkinglots);
+  bool AddGarage(string name, int parkinglots, List<VehicleType> types);
 
   //Vehicles
   bool ParkVehicle(string garageName, Vehicle vehicle);

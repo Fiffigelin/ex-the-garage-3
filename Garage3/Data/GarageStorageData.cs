@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Garage3.Domain.General;
 
 namespace Garage3.Data;
 
@@ -14,6 +15,7 @@ public class GarageStorageItem
   public string Name { get; set; } = "";
   public int ParkingLots { get; set; }
   public List<VehicleStorageItem> Vehicles { get; set; } = [];
+  public List<VehicleType> Types { get; set; } = [];
 }
 
 // Behöver spara alla värden för de klasser som har basklassen Vehicle

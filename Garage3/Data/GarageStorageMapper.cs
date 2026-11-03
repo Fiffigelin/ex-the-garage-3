@@ -13,7 +13,7 @@ public static class GarageStorageMapper
 
     foreach (GarageStorageItem item in data.Garages)
     {
-      Garage<Vehicle> garage = new(item.Name, item.ParkingLots);
+      Garage<Vehicle> garage = new(item.Name, item.ParkingLots, item.Types);
 
       foreach (VehicleStorageItem vehicleItem in item.Vehicles)
       {
@@ -42,7 +42,8 @@ public static class GarageStorageMapper
       GarageStorageItem garageItem = new()
       {
         Name = garage.Name,
-        ParkingLots = garage.ParkingLots
+        ParkingLots = garage.ParkingLots,
+        Types = [.. garage.Types]
       };
 
       foreach (Vehicle vehicle in garage.Vehicles)
