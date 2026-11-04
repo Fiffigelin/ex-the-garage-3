@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Garage3.Application;
 using Garage3.Data;
 using Garage3.Domain.Garages;
-using Garage3.Domain.General;
-using Garage3.Domain.Vehicles;
 using Garage3.UI;
-using Garage3.UI.Emoji;
 using Garage3.UI.Table;
 
 internal class Program
@@ -31,22 +27,6 @@ internal class Program
     Console.OutputEncoding = Encoding.UTF8;
 
     ui.Start();
-    // List<MultibleMenuItem<VehicleType>> options =
-    // [
-    //   new(VehicleType.Car, $"Car {ConsoleEmoji.PrintVehicleType(VehicleType.Car)}"),
-    //   new(VehicleType.Motorcycle, $"Motorcycle {ConsoleEmoji.PrintVehicleType(VehicleType.Motorcycle)}"),
-    //   new(VehicleType.Bus, $"Bus {ConsoleEmoji.PrintVehicleType(VehicleType.Bus)}"),
-    //   new(VehicleType.Boat, $"Boat {ConsoleEmoji.PrintVehicleType(VehicleType.Boat)}"),
-    //   new(VehicleType.Airplane, $"Airplane {ConsoleEmoji.PrintVehicleType(VehicleType.Airplane)}")
-    // ];
-
-    // List<VehicleType> types = ConsoleMenu.MultibleMenuHandler<VehicleType>(["Choose one or more vehicle types for your garage"], options);
-
-    // foreach (VehicleType type in types)
-    // {
-    //   Console.WriteLine(type);
-    // }
-    // ConsoleKey consoleKey = Console.ReadKey(true).Key;
   }
   public static GarageData FetchData(GarageRepository repository)
   {

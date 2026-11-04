@@ -8,8 +8,6 @@ namespace Garage3.Tests;
 public class GarageTests
 {
     // [Theory] körs flera gånger om med olika indata [InlineData()]
-    // Testar att skapa Garage som inte uppfyller kraven
-    // Första testar namn och andra testet testar parkeringsplatser
 
     [Theory]
     [InlineData("")]
@@ -140,7 +138,6 @@ public class GarageTests
     }
 
     // remove vehicles
-
     [Theory]
     [InlineData("ABC123")]
     [InlineData("abc123")]

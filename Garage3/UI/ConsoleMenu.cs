@@ -16,7 +16,6 @@ public class MultibleMenuItem<T>
   }
 }
 
-// ändrade namn för kontinuitet
 public static class ConsoleMenu
 {
   public static int MenuHandler(List<string> previousTexts, List<string> options, bool useEscape = true)

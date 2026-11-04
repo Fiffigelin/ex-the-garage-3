@@ -217,9 +217,6 @@ public class ConsoleUI : IUI
     }
   }
 
-  // TODO: Ändra så enbart garage visas beroende på vehicletype
-  // SELECT vehicletype THEN show garages that holds type
-  // AND have parkinglots available
   private void ParkVehicleInGarage()
   {
     while (true)

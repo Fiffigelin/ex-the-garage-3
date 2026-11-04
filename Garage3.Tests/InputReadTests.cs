@@ -14,7 +14,7 @@ public class ConsoleInputReadTests
   [Fact]
   public void Read_ValidInputFirstTime_ReturnsValueWithNoError()
   {
-    using var console = new ConsoleRedirect("red"); // körde denna fast som "123" och det testet gick igenom. Det var ju inte riktigt tanken... Gör om gör rätt på funktionen
+    using var console = new ConsoleRedirect("red");
 
     string result = ConsoleInput.Read<string>(
       "Color: ",

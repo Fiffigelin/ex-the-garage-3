@@ -18,8 +18,6 @@ public class RowData<T> where T : class
   }
 }
 
-// namnbyte
-// jisses att gå tillbaka till sin kod, ska skriva lite kommentarer XD
 public static class Table
 {
   public static void PrintTable<T>(
@@ -124,9 +122,6 @@ public static class Table
   }
 
   // table utan att man ska kunna bläddra i den.
-  // kan baka in denna i den första tabellen
-  // men det är inte huvudsyftet med uppgiften vilket jag alltid missar
-  // sidequest-mania!
   public static void PrintNoIntegrationTable<T>(
     Func<List<string>> header,
     List<string> columnHeader,
@@ -210,7 +205,6 @@ public static class Table
     return sum + (widths.Count - 1) * 3;
   }
 
-  // eftersom det är en konsoll och inte något som dynamiskt ändras behöver denna köras för att skriva om tabellen
   private static List<RowData<T>> ResizeRows<T>(List<RowData<T>> rows, RowData<T> data) where T : class
   {
     List<RowData<T>> newRows = rows;
