@@ -22,7 +22,7 @@ Fordonen ska implementeras som klassen Vehicle och subklasser till den.
 [x] Registreringsnumret är unikt  
 [x] Det måste minst finnas följande subklasser: Bil, Motorcykel, Buss, Båt och Flygplan
 [x] Dessa skall implementera minst en egen egenskap var. 
-[] Själva garaget ska implementeras som en generisk samling av fordon:  
+[x] Själva garaget ska implementeras som en generisk samling av fordon:  
 class Garage<T>  
 [x] Dessutom ska den generiska typen begränsas med hjälp av en constraint:  
 class Garage<T> where ....  
@@ -52,17 +52,17 @@ basklassen Vehicle).
 [x] Navigera till samtlig funktionalitet från garage via gränssnittet  
 [x] Skapa ett garage med en användar-specificerad storlek  
 [x] Det skall gå att stänga av applikationen från gränssnittet  
-[] Applikationen skall fel hantera indata på ett robust sätt, så att den inte kraschar vid felaktig 
+[x] Applikationen skall fel hantera indata på ett robust sätt, så att den inte kraschar vid felaktig 
 inmatning eller användning.  
 
 ## Förslag på Extra funktionalitet (ej krav):  
 [] Möjlighet att också kunna söka på de fordonsspecifika egenskaperna.  
-[] Hantera flera garage som kan ha olika typer av fordon i sig exempelvis en hangar ett vanligt garage samt ett motorcykelgarage.  
+[x] Hantera flera garage som kan ha olika typer av fordon i sig exempelvis en hangar ett vanligt garage samt ett motorcykelgarage.  
 [] Det ska tydligt visas vilket garage man för närvarande arbetar med.  
 [] Ett garage består inte längre av fordon utan av parkeringsplatser som i sin tur kan hålla 
 fordon.  
 [x] Det går att via C# skriva och läsa till filsystemet från er applikation.
-[] Olika fordon tar olika stor plats tex en bil tar 1plats en båt tar 2 platser ett flygplan kräver 3 
+[x] Olika fordon tar olika stor plats tex en bil tar 1plats en båt tar 2 platser ett flygplan kräver 3 
 platser osv en motorcykel tar endast 1/3 dels plats.  
 [] När man parkerar ska endast de fordon som garaget har plats för visas som alternativ.  
 [] Läsa in storleken på garaget via konfiguration.  

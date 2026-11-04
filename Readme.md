@@ -32,6 +32,7 @@ Vilka funktioner som är tillgängliga beror på den aktuella implementationen.
 - `Color` – färg.
 - `NumberOfWheels` – antal hjul.
 - `LicensePlate` – registreringsnummer.
+- `ParkingCells` – parkeringsplats dividerade i celler. 1 parkeringsplats är detsamma som 3 celler.
 
 Fordonets färg och registreringsnummer normaliseras till versaler. Registreringsnumret valideras mot ett mönster med tre bokstäver följt av två siffror och därefter en bokstav eller siffra, exempelvis `ABC123`.
 
